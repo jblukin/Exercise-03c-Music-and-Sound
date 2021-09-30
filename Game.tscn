@@ -1,11 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Grid/grid.gd" type="Script" id=1]
 [ext_resource path="res://Pieces/Piece Background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/HUD.gd" type="Script" id=3]
 [ext_resource path="res://Assets/coin_small.png" type="Texture" id=4]
+[ext_resource path="res://Assets/background2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/SimpleScore.ogg" type="AudioStream" id=6]
+[ext_resource path="res://UI/Music.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Ignotum.otf" type="DynamicFontData" id=8]
+[ext_resource path="res://Assets/3.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/2.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/1.wav" type="AudioStream" id=11]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+font_data = ExtResource( 8 )
 
 [node name="Game" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+centered = false
+offset = Vector2( -130, 0 )
 
 [node name="grid" type="Node2D" parent="."]
 script = ExtResource( 1 )
@@ -43,7 +59,24 @@ margin_left = 40.0
 margin_top = 7.0
 margin_right = 566.0
 margin_bottom = 27.0
+custom_fonts/font = SubResource( 1 )
 text = "	"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+autoplay = true
+script = ExtResource( 7 )
+
+[node name="1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]

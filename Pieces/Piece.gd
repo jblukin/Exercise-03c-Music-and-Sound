@@ -15,7 +15,11 @@ export var transparent_time = 1.0
 export var scale_time = 1.5
 export var rot_time = 1.5
 
+var sound1 = get_node_or_null("res://Assets/1.wav")
+var sound2 = get_node_or_null("res://Assets/2.wav")
+var sound3 = get_node_or_null("res://Assets/3.wav")
 
+var Coin = preload("res://Coin/Coin.tscn")
 
 func _ready():
 	$Select.texture = $Sprite.texture
@@ -36,9 +40,27 @@ func _physics_process(_delta):
 func generate(pos):
 	position = Vector2(pos.x,-100)
 	target_position = pos
+	if sound2 == null:
+		sound2 = get_node_or_null("/root/Game/2")
+	if sound2 != null:
+		sound2.play()
 
 func move_piece(change):
 	target_position = target_position + change
+	if sound3 == null:
+		sound3 = get_node_or_null("/root/Game/3")
+	if sound3 != null:
+		sound3.play()
 
 func die():
 	dying = true;
+	if sound1 == null:
+		sound1 = get_node_or_null("/root/Game/1")
+	if sound1 != null:
+		sound1.play()
+	if Effects == null:
+		Effects = get_node_or_null("/root/Game/Effects")
+	if Effects != null:
+		var coin = Coin.instance()
+		coin.position = target_position
+		Effects.add_child(coin)
